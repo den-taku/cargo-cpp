@@ -7,3 +7,6 @@ pub struct Cli {
     pub action: String,
 }
 
+pub fn main_cpp() -> String {
+    "#include <iostream>\n// using namespace std;\n\nint main() {\n    //\n}\n".to_string()
+}

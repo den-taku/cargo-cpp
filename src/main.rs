@@ -7,5 +7,6 @@ fn main() {
     let args = cargo_cpp::Cli::from_args();
 
     println!("{}", args.action);
+    println!("{}", cargo_cpp::main_cpp());
 
 }
