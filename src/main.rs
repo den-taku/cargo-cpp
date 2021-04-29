@@ -38,7 +38,7 @@ fn main() -> Result<()> {
                 println!("cc_library(\n    name = \"{}\",\n    srcs = [\"{}.cpp\"]\n    hdrs = [\"{}\".h],\n)]", name, name, name);
                 println!("add statement to cc_binary in BUILD");
                 println!("    deps = [\":{}.h\",],", name);
-            } else {
+            } else { // happend?
                 println!("add statement to cc_binary in BUILD");
                 println!("")
             }
