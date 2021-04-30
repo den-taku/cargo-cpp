@@ -3,6 +3,7 @@ use anyhow::Result;
 use cli::Action::*;
 use structopt::StructOpt;
 
+mod actions;
 mod cli;
 mod file_handler;
 mod template;
@@ -13,13 +14,27 @@ fn main() -> Result<()> {
     let args = cli::Cli::from_args();
 
     match args.action {
+        new => actions::when_new(args.name.unwrap())?,
+        build => actions::when_build()?,
+        run => actions::when_run()?,
+        test => actions::when_test()?,
+        add => actions::when_add()?,
+        query => actions::when_query()?,
+    }
+
+    /*
+    match args.action {
         new => {
             println!("args: new\nMake files and directories...\n");
-            println!("./main/main.cpp:\n{}", template::main_cpp());
+            println!(
+                "./main/main.cpp:\n{}",
+                template::main_cpp(&args.name.clone().unwrap())
+            );
             println!(
                 "./main/BUILD:\n{}",
-                template::build(args.name.clone().unwrap())
+                template::build_main(args.name.clone().unwrap())
             );
+            println!("./lib/BUILD:\n{}", template::build_lib());
             println!("./WORKSPACE:\n{}", template::workspace());
             println!("./.gitignore:\n{}", template::git_ignore());
             println!("./config:\n{}", template::config(args.name.unwrap()));
@@ -64,6 +79,6 @@ fn main() -> Result<()> {
             );
         }
     }
-
+    // */
     Ok(())
 }
