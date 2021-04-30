@@ -1,6 +1,6 @@
+use anyhow::Result;
 use std::fs::{self, File};
 use std::io::Write;
-use anyhow::Result;
 
 pub fn write_file(content: String, path: String) -> Result<()> {
     let mut file = File::create(path)?;
