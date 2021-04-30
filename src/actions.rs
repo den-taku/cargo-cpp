@@ -55,7 +55,7 @@ pub fn when_new(name: String) -> Result<()> {
     pb.println(format!("[+] finished #{}", 11));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::proconlib_h(), format!("{}/main/proconlib.h", &name))?;
+    crate::file_handler::write_file(crate::template::proconlib_h(), format!("{}/lib/proconlib.h", &name))?;
     pb.println(format!("[+] finished #{}", 12));
     pb.inc(1);
 
