@@ -24,6 +24,7 @@ arg_enum! {
         run,
         test,
         add,
+        query,
     }
 }
 
@@ -48,4 +49,8 @@ pub fn workspace() -> String {
 
 pub fn config(name: String) -> String {
     format!("name = \"{}\"\nlibrary = false", name)
+}
+
+pub fn git_ignore() -> String {
+    "/bazel-*\n".to_string()
 }

@@ -14,6 +14,7 @@ fn main() -> Result<()> {
             println!("./main/main.cpp:\n{}", cargo_cpp::main_cpp());
             println!("./main/BUILD:\n{}", cargo_cpp::build(args.name.clone().unwrap()));
             println!("./WORKSPACE:\n{}", cargo_cpp::workspace());
+            println!("./.gitignore:\n{}", cargo_cpp::git_ignore());
             println!("./config:\n{}", cargo_cpp::config(args.name.unwrap()));
         },
         build => {
@@ -32,6 +33,7 @@ fn main() -> Result<()> {
             println!("TEST");
         },
         add => {
+            // For this, dentaku has to know more about Bazel
             println!("args: add");
             if let Some(name) = args.lib_name {
                 println!("add statement to BUILD");
@@ -44,6 +46,11 @@ fn main() -> Result<()> {
             }
             println!("add sentence to cc_library in BUILD:");
             println!(" hdrs = [\"filename.h\"] in cc_binary");
+        },
+        query => {
+            println!("args: query");
+            println!("READ config");
+            println!("$ bazel query --nohost_deps --noimplicit_deps 'deps(//main:{})' --output graph", "name");
         }
     }
 
