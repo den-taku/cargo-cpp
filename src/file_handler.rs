@@ -13,3 +13,7 @@ pub fn do_mkdir(file_name: &str) -> Result<()> {
     fs::create_dir(file_name)?;
     Ok(())
 }
+
+pub fn read_file(path: &str) -> Result<String> {
+    Ok(fs::read_to_string(path)?)
+}

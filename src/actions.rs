@@ -153,7 +153,7 @@ pub fn when_fmt() -> Result<()> {
         .args(&["-i", "main/main.cpp"])
         .spawn()?;
     let _status = child.wait()?;
-    let name = read_config()?;
+    let name = crate::file_handler::read_file("./.configcpp")?;
     let mut child = Command::new("clang-format")
         .args(&["-i", &format!("main/{}.cpp", &name)])
         .spawn()?;
@@ -163,8 +163,4 @@ pub fn when_fmt() -> Result<()> {
         .spawn()?;
     let _status = child.wait()?;
     Ok(())
-}
-
-fn read_config() -> Result<String> {
-    Ok(fs::read_to_string("./.configcpp")?)
 }
