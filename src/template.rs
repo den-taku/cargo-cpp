@@ -1,6 +1,6 @@
 /// This is a template for ./main/main.cpp
 pub fn main_cpp(name: &str) -> String {
-    format!("#include <iostream>\n#include \"{}.h\"\n#include \"lib/proconlib.h\"\n// using namespace std;\n\nint main() {{\n    std::cout << \"Hello, world\" << std::endl;\n    return 0;\n}}\n", &name)
+    format!("#include <iostream>\n#include \"{}.h\"\n#include \"lib/proconlib.h\"\n#include <vector>\n#include <algorithm>\n// using namespace std;\n\nint main() {{\n    std::cout << \"Hello, world\" << std::endl;\n    return 0;\n}}\n", &name)
 }
 
 /// This is a template for ./main/BUILD
