@@ -24,12 +24,13 @@ pub fn workspace() -> String {
     "\n".to_string()
 }
 
-pub fn config(name: String) -> String {
-    format!("name = \"{}\"\nlibrary = false", name)
-}
-
+/// This is a template for ./.gitignore
 pub fn git_ignore() -> String {
     "/bazel-*\n".to_string()
+}
+
+pub fn config(name: String) -> String {
+    format!("name = \"{}\"\nlibrary = false", name)
 }
 
 pub fn name_cpp() -> String {

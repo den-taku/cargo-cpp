@@ -1,7 +1,8 @@
 use anyhow::Result;
+use std::process::Command;
 
 pub fn when_new(name: String) -> Result<()> {
-    let pb = indicatif::ProgressBar::new(12);
+    let pb = indicatif::ProgressBar::new(13);
 
     // first, making directories
     crate::file_handler::do_mkdir(&name)?;
@@ -57,6 +58,10 @@ pub fn when_new(name: String) -> Result<()> {
 
     crate::file_handler::write_file(crate::template::proconlib_h(), format!("{}/lib/proconlib.h", &name))?;
     pb.println(format!("[+] finished #{}", 12));
+    pb.inc(1);
+
+    crate::file_handler::write_file(crate::template::git_ignore(), format!("{}/.gitignore", &name))?;
+    pb.println(format!("[+] finished #{}", 13));
     pb.inc(1);
 
     pb.finish_with_message("done");
