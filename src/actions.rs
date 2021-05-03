@@ -1,5 +1,5 @@
 use anyhow::Result;
-use std::process::{Command, Stdio};
+use std::process::Command;
 
 pub fn when_new(name: String) -> Result<()> {
     let pb = indicatif::ProgressBar::new(13);
@@ -96,7 +96,11 @@ pub fn when_build() -> Result<()> {
 }
 
 pub fn when_run() -> Result<()> {
-    unimplemented!()
+    let mut child = Command::new("bazel")
+        .args(&["run", "//main:main"])
+        .spawn()?;
+    let _status = child.wait()?;
+    Ok(())
 }
 
 pub fn when_test() -> Result<()> {
