@@ -29,8 +29,8 @@ pub fn git_ignore() -> String {
     "/bazel-*\n".to_string()
 }
 
-pub fn _config(name: String) -> String {
-    format!("name = \"{}\"\nlibrary = false", name)
+pub fn config(name: &String) -> String {
+    format!("{}", name)
 }
 
 pub fn name_cpp() -> String {

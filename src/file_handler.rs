@@ -4,7 +4,7 @@ use std::io::Write;
 
 pub fn write_file(content: String, path: String) -> Result<()> {
     let mut file = File::create(path)?;
-    write!(file, "{}", content);
+    write!(file, "{}", content)?;
     file.flush()?;
     Ok(())
 }

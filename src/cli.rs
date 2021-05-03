@@ -26,5 +26,6 @@ arg_enum! {
         Test,
         Add,
         Query,
+        Fmt,
     }
 }

@@ -1,8 +1,9 @@
 use anyhow::Result;
+use std::fs;
 use std::process::Command;
 
 pub fn when_new(name: String) -> Result<()> {
-    let pb = indicatif::ProgressBar::new(13);
+    let pb = indicatif::ProgressBar::new(14);
 
     // first, making directories
     crate::file_handler::do_mkdir(&name)?;
@@ -82,6 +83,13 @@ pub fn when_new(name: String) -> Result<()> {
     pb.println(format!("[+] finished #{}", 13));
     pb.inc(1);
 
+    crate::file_handler::write_file(
+        crate::template::config(&name),
+        format!("{}/.configcpp", &name),
+    )?;
+    pb.println(format!("[+] finished #{}", 14));
+    pb.inc(1);
+
     pb.finish_with_message("done");
 
     Ok(())
@@ -104,9 +112,7 @@ pub fn when_run() -> Result<()> {
 }
 
 pub fn when_clean() -> Result<()> {
-    let mut child = Command::new("bazel")
-        .args(&["clean"])
-        .spawn()?;
+    let mut child = Command::new("bazel").args(&["clean"]).spawn()?;
     let _status = child.wait()?;
     Ok(())
 }
@@ -121,8 +127,44 @@ pub fn when_add() -> Result<()> {
 
 pub fn when_query() -> Result<()> {
     let mut child = Command::new("bazel")
-        .args(&["query", "--nohost_deps", "--noimplicit_deps", "deps(//main:main)", "--output", "graph"])
+        .args(&[
+            "query",
+            "--nohost_deps",
+            "--noimplicit_deps",
+            "deps(//main:main)",
+            "--output",
+            "graph",
+        ])
         .spawn()?;
     let _status = child.wait()?;
     Ok(())
+}
+
+pub fn when_fmt() -> Result<()> {
+    let mut child = Command::new("clang-format")
+        .args(&["-i", "lib/proconlib.cpp"])
+        .spawn()?;
+    let _status = child.wait()?;
+    let mut child = Command::new("clang-format")
+        .args(&["-i", "lib/proconlib.h"])
+        .spawn()?;
+    let _status = child.wait()?;
+    let mut child = Command::new("clang-format")
+        .args(&["-i", "main/main.cpp"])
+        .spawn()?;
+    let _status = child.wait()?;
+    let name = read_config()?;
+    let mut child = Command::new("clang-format")
+        .args(&["-i", &format!("main/{}.cpp", &name)])
+        .spawn()?;
+    let _status = child.wait()?;
+    let mut child = Command::new("clang-format")
+        .args(&["-i", &format!("main/{}.h", &name)])
+        .spawn()?;
+    let _status = child.wait()?;
+    Ok(())
+}
+
+fn read_config() -> Result<String> {
+    Ok(fs::read_to_string("./.configcpp")?)
 }

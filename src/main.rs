@@ -18,9 +18,10 @@ fn main() -> Result<()> {
         Build => actions::when_build()?,
         Run => actions::when_run()?,
         Clean => actions::when_clean()?,
-        Test => actions::when_test()?,
-        Add => actions::when_add()?,
+        Test => actions::when_test()?, // unimplemented
+        Add => actions::when_add()?,   // unimplemented
         Query => actions::when_query()?,
+        Fmt => actions::when_fmt()?,
     }
 
     /*
