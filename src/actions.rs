@@ -2,7 +2,7 @@ use anyhow::Result;
 use std::process::Command;
 
 pub fn when_new(name: String) -> Result<()> {
-    let pb = indicatif::ProgressBar::new(14);
+    let pb = indicatif::ProgressBar::new(15);
 
     // first, making directories
     crate::file_handler::do_mkdir(&name)?;
@@ -87,6 +87,14 @@ pub fn when_new(name: String) -> Result<()> {
         format!("{}/.configcpp", &name),
     )?;
     pb.println(format!("[+] finished #{}", 14));
+    pb.inc(1);
+
+    std::env::set_current_dir(format!("{}", &name))?;
+    let mut child = Command::new("bazel")
+        .args(&["build", "//main:main"])
+        .spawn()?;
+    let _status = child.wait()?;
+    pb.println(format!("[+] finished #{}", 15));
     pb.inc(1);
 
     pb.finish_with_message("done");
