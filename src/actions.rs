@@ -1,5 +1,4 @@
 use anyhow::Result;
-use std::fs;
 use std::process::Command;
 
 pub fn when_new(name: String) -> Result<()> {
