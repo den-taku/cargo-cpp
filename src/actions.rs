@@ -1,5 +1,5 @@
 use anyhow::Result;
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 pub fn when_new(name: String) -> Result<()> {
     let pb = indicatif::ProgressBar::new(13);
@@ -40,27 +40,45 @@ pub fn when_new(name: String) -> Result<()> {
     pb.println(format!("[+] finished #{}", 7));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::main_cpp(&name), format!("{}/main/main.cpp", &name))?;
+    crate::file_handler::write_file(
+        crate::template::main_cpp(&name),
+        format!("{}/main/main.cpp", &name),
+    )?;
     pb.println(format!("[+] finished #{}", 8));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::name_cpp(), format!("{}/main/{}.cpp", &name, &name))?;
+    crate::file_handler::write_file(
+        crate::template::name_cpp(),
+        format!("{}/main/{}.cpp", &name, &name),
+    )?;
     pb.println(format!("[+] finished #{}", 9));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::name_h(), format!("{}/main/{}.h", &name, &name))?;
+    crate::file_handler::write_file(
+        crate::template::name_h(),
+        format!("{}/main/{}.h", &name, &name),
+    )?;
     pb.println(format!("[+] finished #{}", 10));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::proconlib_cpp(), format!("{}/lib/proconlib.cpp", &name))?;
+    crate::file_handler::write_file(
+        crate::template::proconlib_cpp(),
+        format!("{}/lib/proconlib.cpp", &name),
+    )?;
     pb.println(format!("[+] finished #{}", 11));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::proconlib_h(), format!("{}/lib/proconlib.h", &name))?;
+    crate::file_handler::write_file(
+        crate::template::proconlib_h(),
+        format!("{}/lib/proconlib.h", &name),
+    )?;
     pb.println(format!("[+] finished #{}", 12));
     pb.inc(1);
 
-    crate::file_handler::write_file(crate::template::git_ignore(), format!("{}/.gitignore", &name))?;
+    crate::file_handler::write_file(
+        crate::template::git_ignore(),
+        format!("{}/.gitignore", &name),
+    )?;
     pb.println(format!("[+] finished #{}", 13));
     pb.inc(1);
 
@@ -70,7 +88,11 @@ pub fn when_new(name: String) -> Result<()> {
 }
 
 pub fn when_build() -> Result<()> {
-    unimplemented!()
+    let mut child = Command::new("bazel")
+        .args(&["build", "//main:main"])
+        .spawn()?;
+    let _status = child.wait()?;
+    Ok(())
 }
 
 pub fn when_run() -> Result<()> {

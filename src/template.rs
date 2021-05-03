@@ -29,7 +29,7 @@ pub fn git_ignore() -> String {
     "/bazel-*\n".to_string()
 }
 
-pub fn config(name: String) -> String {
+pub fn _config(name: String) -> String {
     format!("name = \"{}\"\nlibrary = false", name)
 }
 
@@ -42,7 +42,8 @@ pub fn name_h() -> String {
 }
 
 pub fn proconlib_cpp() -> String {
-    "// for libraries ...\n// I'll add codes in the future...\n\nvoid somelib() {\n    //\n}\n".to_string()
+    "// for libraries ...\n// I'll add codes in the future...\n\nvoid somelib() {\n    //\n}\n"
+        .to_string()
 }
 
 pub fn proconlib_h() -> String {
