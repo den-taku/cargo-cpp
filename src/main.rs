@@ -14,17 +14,17 @@ fn main() -> Result<()> {
     let args = cli::Cli::from_args();
 
     match args.action {
-        new => actions::when_new(args.name.unwrap())?,
-        build => actions::when_build()?,
-        run => actions::when_run()?,
-        test => actions::when_test()?,
-        add => actions::when_add()?,
-        query => actions::when_query()?,
+        New => actions::when_new(args.name.unwrap())?,
+        Build => actions::when_build()?,
+        Run => actions::when_run()?,
+        Test => actions::when_test()?,
+        Add => actions::when_add()?,
+        Query => actions::when_query()?,
     }
 
     /*
     match args.action {
-        new => {
+        New => {
             println!("args: new\nMake files and directories...\n");
             println!(
                 "./main/main.cpp:\n{}",
@@ -39,22 +39,22 @@ fn main() -> Result<()> {
             println!("./.gitignore:\n{}", template::git_ignore());
             println!("./config:\n{}", template::config(args.name.unwrap()));
         }
-        build => {
+        Build => {
             println!("args: build");
             println!("READ config");
             println!("$ bazel build //main:{}", "filename");
         }
-        run => {
+        Run => {
             println!("args: run");
             println!("READ config");
             println!("$ bazel run //main:{}", "filename");
         }
-        test => {
+        Test => {
             println!("args: test");
             println!("READ config");
             println!("TEST");
         }
-        add => {
+        Add => {
             // For this, dentaku has to know more about Bazel
             println!("args: add");
             if let Some(name) = args.lib_name {
@@ -70,7 +70,7 @@ fn main() -> Result<()> {
             println!("add sentence to cc_library in BUILD:");
             println!(" hdrs = [\"filename.h\"] in cc_binary");
         }
-        query => {
+        Query => {
             println!("args: query");
             println!("READ config");
             println!(

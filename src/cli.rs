@@ -19,11 +19,11 @@ pub struct Cli {
 arg_enum! {
     #[derive(Debug)]
     pub enum Action {
-        new,
-        build,
-        run,
-        test,
-        add,
-        query,
+        New,
+        Build,
+        Run,
+        Test,
+        Add,
+        Query,
     }
 }
