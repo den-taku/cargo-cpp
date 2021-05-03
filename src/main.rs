@@ -17,6 +17,7 @@ fn main() -> Result<()> {
         New => actions::when_new(args.name.unwrap())?,
         Build => actions::when_build()?,
         Run => actions::when_run()?,
+        Clean => actions::when_clean()?,
         Test => actions::when_test()?,
         Add => actions::when_add()?,
         Query => actions::when_query()?,

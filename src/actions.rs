@@ -103,6 +103,14 @@ pub fn when_run() -> Result<()> {
     Ok(())
 }
 
+pub fn when_clean() -> Result<()> {
+    let mut child = Command::new("bazel")
+        .args(&["clean"])
+        .spawn()?;
+    let _status = child.wait()?;
+    Ok(())
+}
+
 pub fn when_test() -> Result<()> {
     unimplemented!()
 }
@@ -112,5 +120,9 @@ pub fn when_add() -> Result<()> {
 }
 
 pub fn when_query() -> Result<()> {
-    unimplemented!()
+    let mut child = Command::new("bazel")
+        .args(&["query", "--nohost_deps", "--noimplicit_deps", "deps(//main:main)", "--output", "graph"])
+        .spawn()?;
+    let _status = child.wait()?;
+    Ok(())
 }

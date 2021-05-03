@@ -22,6 +22,7 @@ arg_enum! {
         New,
         Build,
         Run,
+        Clean,
         Test,
         Add,
         Query,
