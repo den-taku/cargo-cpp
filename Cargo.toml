@@ -1,6 +1,6 @@
 [package]
 name = "cargo-dentaku-ant"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["DenTaku <dentaku1412@gmail.com>"]
 description = "Package manageer for C++ with Bazel and Clang-format."
 license = "MIT OR Apache-2.0"
